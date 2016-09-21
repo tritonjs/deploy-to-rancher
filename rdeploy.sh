@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 RANCHER_SERVICE_NAME=$(cat /tmp/servicename)
+RANCHER_ACCESS_KEY=$(cat /tmp/rak)
+RANCHER_SECRET_KEY=$(cat /tmp/rsk)
 
 # Determine branch
 branch_name=$(git symbolic-ref -q HEAD)
@@ -37,6 +39,9 @@ PROJECT_CONFIG_URL=$RANCHER_URL"/environments/"$RANCHER_STACK_ID"/composeconfig"
 curl -L -u "$RANCHER_ACCESS_KEY:$RANCHER_SECRET_KEY" $PROJECT_CONFIG_URL -o /tmp/config.zip
 unzip /tmp/config.zip -o/tmp/rc
 rm config.zip
+
+# Remove stale AS & SK
+rm -rf /tmp/rak /tmp/rsk
 
 echo ""
 echo "-> Interact with Rancher"
