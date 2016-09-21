@@ -3,11 +3,6 @@ RANCHER_SERVICE_NAME=$(cat /tmp/servicename)
 RANCHER_ACCESS_KEY=$(cat /tmp/rak)
 RANCHER_SECRET_KEY=$(cat /tmp/rsk)
 
-# Determine branch
-branch_name=$(git symbolic-ref -q HEAD)
-branch_name=${branch_name##refs/heads/}
-branch_name=${branch_name:-HEAD}
-
 # Early pushd /tmp to prevent any issues.
 pushd "/tmp" >/dev/null
 
@@ -15,12 +10,9 @@ pushd "/tmp" >/dev/null
 source /tmp/rdeploy/config.sh
 
 echo ""
-echo "-> A: ${RANCHER_ACCESS_KEY}"
-echo "-> S: ${RANCHER_SECRET_KEY}"
 echo "-> Rancher: ${RANCHER_URL}"
 echo "-> Stack: ${RANCHER_STACK_NAME}"
 echo "-> Service: ${RANCHER_SERVICE_NAME}"
-echo "-> Local Branch: ${branch_name}"
 
 echo ""
 echo "-> Downloading rancher-compose"
@@ -43,15 +35,14 @@ rm config.zip
 # Remove stale AS & SK
 rm -rf /tmp/rak /tmp/rsk
 
-echo ""
-echo "-> Interact with Rancher"
 pushd "/tmp/rc" >/dev/null
 
 # Do Upgrade
 echo ""
 echo "-> Updating service $RANCHER_SERVICE_NAME on $RANCHER_STACK_NAME"
-/tmp/rdeploy/rancher-compose -p $RANCHER_STACK_NAME up --force-upgrade --confirm-upgrade --pull -d $RANCHER_SERVICE_NAME
-popd "" >/denull
+/tmp/rdeploy/rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY \ 
+-p $RANCHER_STACK_NAME up --force-upgrade --confirm-upgrade --pull -d $RANCHER_SERVICE_NAME
+popd "" >/dev/null
 
 echo ""
 echo "-> Cleaning up"
