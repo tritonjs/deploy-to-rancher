@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-RANCHER_SERVICE_NAME=$1
-RANCHER_ACCESS_KEY=$2
-RANCHER_SECRET_KEY=$3
+RANCHER_SERVICE_NAME=$(cat /tmp/servicename)
 
 # Determine branch
 branch_name=$(git symbolic-ref -q HEAD)
