@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
+RANCHER_SERVICE_NAME=$1
+
+# Determine branch
+branch_name=$(git symbolic-ref -q HEAD)
+branch_name=${branch_name##refs/heads/}
+branch_name=${branch_name:-HEAD}
+
+# Early pushd /tmp to prevent any issues.
 pushd "/tmp" >/dev/null
+
+# Load Config.
+source config.sh
+
+echo ""
+echo "-> Rancher: ${RANCHER_URL}"
+echo "-> Stack: ${RANCHER_STACK_NAME}"
+echo "-> Service: ${RANCHER_SERVICE_NAME}"
+echo "-> Local Branch: ${branch_name}"
 
 echo ""
 echo "-> Downloading rancher-compose"
