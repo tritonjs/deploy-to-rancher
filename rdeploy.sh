@@ -13,6 +13,8 @@ pushd "/tmp" >/dev/null
 source /tmp/rdeploy/config.sh
 
 echo ""
+echo "-> A: ${RANCHER_ACCESS_KEY}"
+echo "-> S: ${RANCHER_SECRET_KEY}"
 echo "-> Rancher: ${RANCHER_URL}"
 echo "-> Stack: ${RANCHER_STACK_NAME}"
 echo "-> Service: ${RANCHER_SERVICE_NAME}"
@@ -32,7 +34,7 @@ chmod +x /tmp/rdeploy/rancher-compose
 echo ""
 echo "-> Downloading Rancher Stack Configurations"
 PROJECT_CONFIG_URL=$RANCHER_URL"/environments/"$RANCHER_STACK_ID"/composeconfig"
-curl -s -L -u "$RANCHER_ACCESS_KEY:$RANCHER_SECRET_KEY" $PROJECT_CONFIG_URL -o /tmp/config.zip
+curl -L -u "$RANCHER_ACCESS_KEY:$RANCHER_SECRET_KEY" $PROJECT_CONFIG_URL -o /tmp/config.zip
 unzip /tmp/config.zip -o/tmp/rc
 rm config.zip
 
