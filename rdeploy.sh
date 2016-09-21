@@ -40,8 +40,7 @@ pushd "/tmp/rc" >/dev/null
 # Do Upgrade
 echo ""
 echo "-> Updating service $RANCHER_SERVICE_NAME on $RANCHER_STACK_NAME"
-/tmp/rdeploy/rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY \ 
--p $RANCHER_STACK_NAME up --force-upgrade --confirm-upgrade --pull -d $RANCHER_SERVICE_NAME
+/tmp/rdeploy/rancher-compose --url "${RANCHER_URL}" --access-key "${RANCHER_ACCESS_KEY}" --secret-key "${RANCHER_SECRET_KEY}" -p "${RANCHER_STACK_NAME}" up --force-upgrade --confirm-upgrade --pull -d "${RANCHER_SERVICE_NAME}"
 popd "" >/dev/null
 
 echo ""
