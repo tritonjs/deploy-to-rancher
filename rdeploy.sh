@@ -10,7 +10,7 @@ branch_name=${branch_name:-HEAD}
 pushd "/tmp" >/dev/null
 
 # Load Config.
-source config.sh
+source /tmp/config.sh
 
 echo ""
 echo "-> Rancher: ${RANCHER_URL}"
@@ -39,6 +39,4 @@ rm config.zip
 # Do Upgrade
 echo ""
 echo "-> Updating service $RANCHER_SERVICE_NAME on $RANCHER_STACK_NAME"
-/tmp/rdeploy/rancher-compose -p $RANCHER_STACK_NAME up \
-    --force-upgrade --confirm-upgrade --pull \
--d $RANCHER_SERVICE_NAME
+/tmp/rdeploy/rancher-compose -p $RANCHER_STACK_NAME up --force-upgrade --confirm-upgrade --pull -d $RANCHER_SERVICE_NAME
