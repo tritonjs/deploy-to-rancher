@@ -9,6 +9,7 @@ pushd "/tmp" >/dev/null
 # Load Config.
 source /tmp/rdeploy/config.sh
 
+echo "deploy-to-rancher v1"
 echo ""
 echo "-> Rancher: ${RANCHER_URL}"
 echo "-> Stack: ${RANCHER_STACK_NAME}"
